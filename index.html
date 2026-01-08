@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Motor de Aventuras v0.3 (Dialogos)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo">🧩</div>
+          <div>
+            <div class="title">Motor de Aventuras v0.3</div>
+            <div class="subtitle">Inventario · Verbos · Guardado · Dialogos</div>
+          </div>
+        </div>
+
+        <!-- ✅ NUEVO: título/subtítulo de escena en header -->
+        <div class="scene-meta" aria-live="polite">
+          <div id="sceneHeaderTitle" class="scene-meta__title">—</div>
+          <div id="sceneHeaderSub" class="scene-meta__sub"></div>
+        </div>
+
+        <div class="top-actions">
+          <button id="btnSave" class="btn">💾 Guardar</button>
+          <button id="btnLoad" class="btn">📦 Cargar</button>
+          <button id="btnNew" class="btn btn-danger">🧨 Nueva partida</button>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="game">
+          <div class="scene">
+            <div class="scene-viewport" id="sceneViewport">
+              <div class="scene-stage" id="sceneStage">
+                <div id="sceneBg" class="scene-bg"></div>
+                <div id="hotspots" class="hotspots" aria-label="Hotspots"></div>
+              </div>
+            </div>
+
+            <div class="hud">
+              <div class="verbs">
+                <div class="panel-title">Verbos</div>
+                <div id="verbsBar" class="verbs-bar"></div>
+              </div>
+
+              <div class="info">
+                <div class="panel-title">Accion</div>
+                <div id="actionLine" class="action-line">
+                  Selecciona un verbo y haz clic en algo.
+                </div>
+                <div id="feedback" class="feedback" aria-live="polite"></div>
+              </div>
+
+              <div class="inventory">
+                <div class="panel-title">Inventario</div>
+                <div id="inventory" class="inventory-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        Hecho con HTML/CSS/JS · Dialogos listos para liarla en clase.
+      </footer>
+    </div>
+
+    <!-- MODAL DIALOGO -->
+    <div id="dialogOverlay" class="dialog-overlay" aria-hidden="true">
+      <div class="dialog-modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+        <div class="dialog-header">
+          <div id="dialogTitle" class="dialog-title">Dialogo</div>
+          <button id="dialogClose" class="btn btn-danger btn-small" type="button">
+            Cerrar
+          </button>
+        </div>
+
+        <div id="dialogText" class="dialog-text"></div>
+
+        <div class="dialog-options-title">Opciones</div>
+        <div id="dialogOptions" class="dialog-options"></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initEngine } from "./engine/engine.js";
+      import { SCENES } from "./game/scenes/index.js";
+      import { START_SCENE_ID } from "./game/config.js";
+
+      initEngine(SCENES, START_SCENE_ID);
+    </script>
+  </body>
+</html>
