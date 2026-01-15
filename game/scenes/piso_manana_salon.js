@@ -11,7 +11,7 @@ export const piso_manana_salon = {
     {
       id: "sofa",
       name: "Sofá",
-      hotspot: { x: 300, y: 300, w: 700, h: 160 },
+      hotspot: { x: 380, y: 300, w: 540, h: 160 },
       verbs: {
         look: {
           type: "say",
