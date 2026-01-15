@@ -6,6 +6,7 @@ export const portal = {
   id: "portal",
   title: "Portal del edificio",
   subtitle: "El umbral entre tu casa y el juicio público.",
+   background: "assets/scenes/portal_manana/background.png",
 
   objects: [
     {

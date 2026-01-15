@@ -5,7 +5,8 @@
 export const piso_manana_bano = {
   id: "piso_manana_bano",
   title: "Baño",
-  subtitle: "El espejo no miente. A veces exagera.",
+  subtitle: "El espejo no miente. A veces exagera.", 
+  background: "assets/scenes/piso_manana_bano/background.png",
 
   objects: [
     {

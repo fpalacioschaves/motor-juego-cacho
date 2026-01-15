@@ -11,7 +11,7 @@ export const piso_manana_salon = {
     {
       id: "sofa",
       name: "Sofá",
-      hotspot: { x: 280, y: 240, w: 550, h: 160 },
+      hotspot: { x: 300, y: 300, w: 700, h: 160 },
       verbs: {
         look: {
           type: "say",
@@ -23,7 +23,7 @@ export const piso_manana_salon = {
     {
       id: "cenicero",
       name: "Cenicero",
-      hotspot: { x: 330, y: 420, w: 70, h: 60 },
+      hotspot: { x: 450, y: 500, w: 150, h: 240 },
       verbs: {
         look: {
           type: "say",
@@ -49,7 +49,7 @@ export const piso_manana_salon = {
     {
       id: "libros",
       name: "Libros",
-      hotspot: { x: 320, y: 290, w: 120, h: 80 },
+      hotspot: { x: 1220, y: 70, w: 220, h: 180 },
       verbs: {
         look: {
           type: "say",
@@ -61,7 +61,7 @@ export const piso_manana_salon = {
     {
       id: "einstein",
       name: "Póster de Einstein",
-      hotspot: { x: 340, y: 40, w: 120, h: 160 },
+      hotspot: { x: 410, y: 40, w: 190, h: 190 },
       verbs: {
         look: {
           type: "say",
@@ -73,7 +73,7 @@ export const piso_manana_salon = {
     {
       id: "puerta_piso",
       name: "Puerta del piso",
-      hotspot: { x: 1250, y: 50, w: 130, h: 380 },
+      hotspot: { x: 0, y: 20, w: 80, h: 420 },
       verbs: {
         look: {
           type: "say",
@@ -118,13 +118,13 @@ export const piso_manana_salon = {
       to: "piso_manana_bano",
       label: "Ir al baño",
       text: "El baño: espejo y verdad.",
-      hotspot: { x: 1100, y: 80, w: 110, h: 290 }
+      hotspot: { x:200, y: 40, w: 170, h: 290 }
     },
     {
       to: "piso_manana_dormitorio",
       label: "Ir al dormitorio",
       text: "El dormitorio: ropa, caos y cartera.",
-      hotspot: { x: 130, y: 40, w: 180, h: 390 }
+      hotspot: { x: 930, y: 40, w: 230, h: 300 }
     },
 
     // ✅ FIX: estaba en y=420 (fuera del escenario de 420px)
@@ -132,7 +132,7 @@ export const piso_manana_salon = {
       to: "piso_manana_cocina",
       label: "Ir a la cocina",
       text: "La cocina: supervivencia básica.",
-      hotspot: { x: 900, y: 90, w: 150, h: 260 }
+      hotspot: { x: 650, y: 30, w: 200, h: 260 }
     }
   ]
 };

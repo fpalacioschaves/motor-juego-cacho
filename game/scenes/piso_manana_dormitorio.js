@@ -6,6 +6,7 @@ export const piso_manana_dormitorio = {
   id: "piso_manana_dormitorio",
   title: "Dormitorio",
   subtitle: "Desorden funcional. Como tu cabeza, pero con cajones.",
+   background: "assets/scenes/piso_manana_dormitorio/background.png",
 
   objects: [
     {

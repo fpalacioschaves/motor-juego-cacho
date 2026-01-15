@@ -6,6 +6,7 @@ export const piso_manana_cocina = {
   id: "piso_manana_cocina",
   title: "Cocina",
   subtitle: "Supervivencia básica con electrodomésticos cansados.",
+   background: "assets/scenes/piso_manana_cocina/background.png",
 
   objects: [
     {
