@@ -79,7 +79,7 @@ function fitStage() {
 
   const vw = sceneEl.clientWidth;
 
-  let scale = vw / BASE_W;
+  let scale = vw / BASE_W ;
   scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
 
   viewport.style.height = `${BASE_H * scale}px`;
@@ -137,7 +137,7 @@ export function bindUI(config) {
     btn.className = "verb-btn";
     btn.type = "button";
     btn.dataset.verb = v.id;
-    btn.innerHTML = `${v.label}<small>${v.hint ?? ""}</small>`;
+    btn.innerHTML = `${v.label} <small>${v.hint ?? ""}</small>`;
 
     btn.addEventListener("click", () => {
       if (btn.disabled) return;

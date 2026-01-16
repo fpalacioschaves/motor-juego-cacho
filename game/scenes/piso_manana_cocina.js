@@ -12,7 +12,7 @@ export const piso_manana_cocina = {
     {
       id: "nevera",
       name: "Nevera",
-      hotspot: { x: 100, y: 120, w: 200, h: 280 },
+      hotspot: { x: 0, y: 0, w: 160, h: 280 },
       verbs: {
         look: {
           type: "say",
@@ -24,7 +24,7 @@ export const piso_manana_cocina = {
     {
       id: "mesa_cocina",
       name: "Mesa",
-      hotspot: { x: 360, y: 260, w: 260, h: 120 },
+      hotspot: { x: 1060, y: 260, w: 360, h: 120 },
       verbs: {
         look: {
           type: "say",
@@ -36,7 +36,7 @@ export const piso_manana_cocina = {
     {
       id: "cajon",
       name: "Cajón",
-      hotspot: { x: 620, y: 260, w: 160, h: 120 },
+      hotspot: { x: 170, y: 280, w: 180, h: 100 },
       verbs: {
         look: {
           type: "say",
@@ -72,7 +72,7 @@ export const piso_manana_cocina = {
       label: "Volver al salón",
       text: "Regresas al salón.",
       // ✅ FIX: antes estaba en y=420 (fuera). Ahora es visible.
-      hotspot: { x: 30, y: 300, w: 170, h: 90 }
+      hotspot: { x: 0, y: 300, w: 160, h: 90 }
     }
   ]
 };

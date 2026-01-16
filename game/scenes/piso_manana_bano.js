@@ -12,7 +12,7 @@ export const piso_manana_bano = {
     {
       id: "espejo",
       name: "Espejo",
-      hotspot: { x: 300, y: 120, w: 260, h: 260 },
+      hotspot: { x: 480, y: 0, w: 500, h: 220 },
       verbs: {
         look: {
           type: "say",
@@ -24,7 +24,7 @@ export const piso_manana_bano = {
     {
       id: "lavabo",
       name: "Lavabo",
-      hotspot: { x: 300, y: 420, w: 260, h: 120 },
+      hotspot: { x: 440, y: 230, w: 560, h: 120 },
       verbs: {
         look: {
           type: "say",
@@ -36,7 +36,7 @@ export const piso_manana_bano = {
     {
       id: "medicinas",
       name: "Mueble de medicinas",
-      hotspot: { x: 600, y: 200, w: 160, h: 220 },
+      hotspot: { x: 160, y: 0, w: 250, h: 180 },
       verbs: {
         look: {
           type: "say",
@@ -51,7 +51,7 @@ export const piso_manana_bano = {
       to: "piso_manana_salon",
       label: "Volver al salón",
       text: "Regresas al salón.",
-      hotspot: { x: 40, y: 200, w: 160, h: 200 }
+      hotspot: { x: 0, y: 200, w: 160, h: 400 }
     }
   ]
 };

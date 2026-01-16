@@ -12,7 +12,7 @@ export const piso_manana_dormitorio = {
     {
       id: "cama",
       name: "Cama",
-      hotspot: { x: 120, y: 260, w: 360, h: 180 },
+      hotspot: { x: 0, y: 300, w: 260, h: 120 },
       verbs: {
         look: {
           type: "say",
@@ -24,7 +24,7 @@ export const piso_manana_dormitorio = {
     {
       id: "mesilla",
       name: "Mesilla",
-      hotspot: { x: 520, y: 260, w: 120, h: 120 },
+      hotspot: { x: 380, y: 460, w: 170, h: 120 },
       verbs: {
         look: {
           type: "say",
@@ -56,7 +56,7 @@ export const piso_manana_dormitorio = {
     {
       id: "armario",
       name: "Armario",
-      hotspot: { x: 700, y: 160, w: 160, h: 300 },
+      hotspot: { x: 1080, y: 0, w: 220, h: 1200 },
       verbs: {
         look: {
           type: "say",
@@ -71,7 +71,7 @@ export const piso_manana_dormitorio = {
       to: "piso_manana_salon",
       label: "Volver al salón",
       text: "Regresas al salón.",
-      hotspot: { x: 40, y: 200, w: 160, h: 200 }
+      hotspot: { x: 1300, y: 0, w: 120, h: 1200 }
     }
   ]
 };

@@ -23,7 +23,7 @@ export const piso_manana_salon = {
     {
       id: "cenicero",
       name: "Cenicero",
-      hotspot: { x: 450, y: 500, w: 150, h: 240 },
+      hotspot: { x: 450, y: 500, w: 150, h: 80 },
       verbs: {
         look: {
           type: "say",
