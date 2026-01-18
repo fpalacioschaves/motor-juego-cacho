@@ -12,7 +12,7 @@ export const portal = {
     {
       id: "portera",
       name: "Doña María del Pilar",
-      hotspot: { x: 520, y: 170, w: 220, h: 250 },
+      hotspot: { x: 0, y: 370, w: 360, h: 250 },
       verbs: {
         look: {
           type: "say",
@@ -49,7 +49,7 @@ export const portal = {
     {
       id: "tablon",
       name: "Tablón de anuncios",
-      hotspot: { x: 90, y: 140, w: 230, h: 180 },
+      hotspot: { x: 73, y: 0, w: 300, h: 250 },
       verbs: {
         look: {
           type: "say",
@@ -63,7 +63,7 @@ export const portal = {
     {
       id: "buzones",
       name: "Buzones",
-      hotspot: { x: 90, y: 340, w: 230, h: 110 },
+      hotspot: { x: 810, y: 70, w: 250, h: 180 },
       verbs: {
         look: { type: "say", text: "Buzones. Un monumento a la publicidad y a las cartas que nunca llegan." }
       }
@@ -75,13 +75,13 @@ export const portal = {
       to: "piso_manana_salon",
       label: "Subir al piso",
       text: "Subes al piso otra vez. Lo tuyo es dar vueltas, al parecer.",
-      hotspot: { x: 30, y: 110, w: 190, h: 90 }
+      hotspot: { x: 530, y: 0, w: 220, h: 230 }
     },
     {
-      to: "calles_barrio",
+      to: "calle_manana",
       label: "Salir a la calle",
       text: "Sales a la calle. El barrio te recibe con su alegría habitual: cero.",
-      hotspot: { x: 30, y: 230, w: 190, h: 90 }
+      hotspot: { x: 1130, y: 0, w: 230, h: 490 }
     }
   ]
 };

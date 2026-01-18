@@ -9,6 +9,9 @@ import { saveToLocalStorage, loadFromLocalStorage, clearLocalStorageSave } from 
 import { addHistory, createInitialState } from "./state.js";
 import { GAME_CONFIG } from "../game/config.js";
 
+import { DEBUG } from "../game/debug.js";
+import { mountDebugUI } from "../game/debug-ui.js";
+
 export function initEngine(scenesById, startSceneId) {
   if (!scenesById || typeof scenesById !== "object") {
     throw new Error("[engine] scenesById inválido");
@@ -17,7 +20,7 @@ export function initEngine(scenesById, startSceneId) {
     startSceneId = Object.keys(scenesById)[0];
   }
 
-  // ✅ Volvemos al contrato que YA tenías funcionando
+  // ✅ Contrato existente
   api.init({ scenes: scenesById, startSceneId });
 
   // ✅ Saneado (por si localStorage trae una escena inválida tipo "scenes")
@@ -25,6 +28,11 @@ export function initEngine(scenesById, startSceneId) {
 
   // UI
   bindUI(GAME_CONFIG);
+
+  // ✅ Debug UI (Scene Jump): PASAMOS scenesById y un callback de render
+  if (DEBUG) {
+    mountDebugUI(api, scenesById, () => render(GAME_CONFIG));
+  }
 
   // Botones
   const btnSave = document.getElementById("btnSave");
