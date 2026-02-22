@@ -1,8 +1,5 @@
 // engine/api.js
 // API central del motor: estado, escenas y helpers.
-// Compatible con dos firmas de init():
-// 1) api.init({ scenes, startSceneId })
-// 2) api.init(scenesById, startSceneId)
 
 const DEFAULT_STATE = {
   scene: "hall",
@@ -10,9 +7,6 @@ const DEFAULT_STATE = {
   inventory: [],
   selectedItemId: null,
   useItemId: null,
-
-  // ✅ Estado global formal (progreso narrativo)
-  // flags: { [flagName]: boolean | any }
   flags: {},
 };
 
@@ -23,21 +17,29 @@ function clone(obj) {
 export const api = {
   state: clone(DEFAULT_STATE),
   scenes: null,
+  listeners: [], // ✅ Sistema de eventos simple
+
+  onUpdate(callback) {
+    if (typeof callback === "function") this.listeners.push(callback);
+  },
+
+  notify() {
+    this.listeners.forEach((cb) => cb(this.state));
+  },
 
   reset() {
     this.state = clone(DEFAULT_STATE);
+    this.notify();
   },
 
   init(arg1, arg2) {
     let scenesById = null;
     let startSceneId = null;
 
-    // Firma 1: api.init({ scenes, startSceneId })
     if (arg1 && typeof arg1 === "object" && arg1.scenes) {
       scenesById = arg1.scenes;
       startSceneId = arg1.startSceneId;
     } else {
-      // Firma 2: api.init(scenesById, startSceneId)
       scenesById = arg1;
       startSceneId = arg2;
     }
@@ -48,17 +50,14 @@ export const api = {
 
     this.scenes = scenesById;
 
-    // Elegir escena inicial válida
     if (startSceneId && this.scenes[startSceneId]) {
       this.state.scene = startSceneId;
     } else if (!this.scenes[this.state.scene]) {
       this.state.scene = Object.keys(this.scenes)[0];
     }
-  },
 
-  /* =========================================================
-     ✅ Helpers “oficiales” de estado global
-     ========================================================= */
+    // El primer notify se hará tras el primer render manual para evitar loops
+  },
 
   // Inventory ------------------------------------------------
   hasItem(itemId) {
@@ -68,25 +67,27 @@ export const api = {
   addItem(itemId) {
     if (!itemId) return;
     const inv = this.state.inventory ?? (this.state.inventory = []);
-    if (!inv.includes(itemId)) inv.push(itemId);
+    if (!inv.includes(itemId)) {
+      inv.push(itemId);
+      this.notify();
+    }
   },
 
   removeItem(itemId) {
     if (!itemId) return;
     const inv = this.state.inventory ?? (this.state.inventory = []);
     const idx = inv.indexOf(itemId);
-    if (idx >= 0) inv.splice(idx, 1);
+    if (idx >= 0) {
+      inv.splice(idx, 1);
+      this.notify();
+    }
   },
 
   // Flags -----------------------------------------------------
   hasFlag(flagName, expectedValue) {
     if (!flagName) return false;
     const v = this.state?.flags?.[flagName];
-
-    // Si no se especifica valor, se interpreta como booleano
     if (expectedValue === undefined) return Boolean(v);
-
-    // Si se especifica valor, comparación estricta
     return v === expectedValue;
   },
 
@@ -96,24 +97,20 @@ export const api = {
       this.state.flags = {};
     }
     this.state.flags[flagName] = value;
+    this.notify();
   },
 
-  // “unset” = desactivar; lo hacemos eliminando o poniendo false.
-  // Para este motor, eliminar es limpio: “no definido” equivale a false.
   unsetFlag(flagName) {
     if (!flagName) return;
     if (!this.state.flags || typeof this.state.flags !== "object") {
       this.state.flags = {};
     }
     delete this.state.flags[flagName];
+    this.notify();
   },
 
-  /* =========================================================
-     ✅ NECESARIA: actions.js la usa
-     ========================================================= */
-
+  // Utilities -------------------------------------------------
   say(text) {
-    // El renderer decide dónde mostrarlo; aquí solo devolvemos el texto
     return String(text ?? "");
   },
 
@@ -122,6 +119,7 @@ export const api = {
       throw new Error(`[api.goto] escena no existe: ${sceneId}`);
     }
     this.state.scene = sceneId;
+    this.notify();
   },
 
   setVerb(verbId) {
@@ -129,13 +127,21 @@ export const api = {
     if (verbId !== "use") {
       this.state.useItemId = null;
     }
+    this.notify();
   },
 
   armUseItem(itemId) {
     this.state.useItemId = itemId;
+    this.notify();
   },
 
   cancelUseMode() {
     this.state.useItemId = null;
+    this.notify();
   },
+
+  setSelectedItemID(itemId) {
+    this.state.selectedItemId = itemId;
+    this.notify();
+  }
 };

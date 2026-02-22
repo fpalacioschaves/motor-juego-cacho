@@ -16,22 +16,16 @@ export function initEngine(scenesById, startSceneId) {
   if (!scenesById || typeof scenesById !== "object") {
     throw new Error("[engine] scenesById inválido");
   }
-  if (!scenesById[startSceneId]) {
-    startSceneId = Object.keys(scenesById)[0];
-  }
 
-  // ✅ Contrato existente
+  // ✅ Inicializar API
   api.init({ scenes: scenesById, startSceneId });
 
-  // ✅ Saneado (por si localStorage trae una escena inválida tipo "scenes")
-  sanitizeStateScene(api.state, scenesById, startSceneId);
-
-  // UI
+  // ✅ Vincular UI (esto suscribe el render a api.onUpdate)
   bindUI(GAME_CONFIG);
 
-  // ✅ Debug UI (Scene Jump): PASAMOS scenesById y un callback de render
+  // ✅ Debug UI
   if (DEBUG) {
-    mountDebugUI(api, scenesById, () => render(GAME_CONFIG));
+    mountDebugUI(api, scenesById, () => api.notify());
   }
 
   // Botones
@@ -43,7 +37,6 @@ export function initEngine(scenesById, startSceneId) {
   btnSave.addEventListener("click", () => {
     const payload = saveToLocalStorage(api.state);
     feedback.textContent = `Partida guardada (${payload.savedAt}).`;
-    render(GAME_CONFIG);
   });
 
   btnLoad.addEventListener("click", () => {
@@ -54,40 +47,16 @@ export function initEngine(scenesById, startSceneId) {
     }
 
     api.state = payload.state;
-
-    // ✅ Saneado al cargar
-    sanitizeStateScene(api.state, scenesById, startSceneId);
-
     addHistory(api.state, `Load (${payload.savedAt})`);
     feedback.textContent = `Partida cargada (${payload.savedAt}).`;
-    render(GAME_CONFIG);
+    api.notify(); // ✅ Disparar actualización manual tras cargar estado completo
   });
 
   btnNew.addEventListener("click", () => {
     clearLocalStorageSave();
     api.state = createInitialState(startSceneId);
-
-    // ✅ Saneado por si acaso
-    sanitizeStateScene(api.state, scenesById, startSceneId);
-
     addHistory(api.state, "Nueva partida");
-    feedback.textContent = "Nueva partida. El destino (y tus errores) te esperan.";
-    render(GAME_CONFIG);
+    feedback.textContent = "Nueva partida. El destino te espera.";
+    api.notify(); // ✅ Disparar actualización manual
   });
-
-  // Render inicial
-  render(GAME_CONFIG);
-}
-
-/**
- * Corrige el estado si apunta a una escena inexistente.
- */
-function sanitizeStateScene(state, scenesById, startSceneId) {
-  if (!state) return;
-
-  if (!state.scene || !scenesById[state.scene]) {
-    state.scene = scenesById[startSceneId] ? startSceneId : Object.keys(scenesById)[0];
-  }
-
-  if (!state.verb) state.verb = "look";
 }

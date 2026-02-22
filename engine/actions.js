@@ -12,29 +12,20 @@
 
 import { api } from "./api.js";
 import { openDialog, closeDialog } from "./ui_dialog.js";
-
-/* =========================================================
-   ✅ NARRATIVA CONTEXTUAL: resolveText + evaluateCond
-   ========================================================= */
+import { evaluateCondition } from "./logic.js";
 
 function resolveText(textOrSpec, ctx) {
-  // texto simple
   if (typeof textOrSpec === "string" || typeof textOrSpec === "number") {
     return String(textOrSpec);
   }
-
-  // null/undefined
   if (textOrSpec == null) return "";
 
-  // objeto => spec condicional
   if (typeof textOrSpec === "object") {
     const spec = textOrSpec;
-
-    // formato: { default, cases:[{if, text}] }
     const cases = Array.isArray(spec.cases) ? spec.cases : [];
     for (const c of cases) {
       if (!c) continue;
-      if (evaluateCond(c.if, ctx)) {
+      if (evaluateCondition(c.if, api.state)) {
         return String(c.text ?? "");
       }
     }
@@ -45,33 +36,6 @@ function resolveText(textOrSpec, ctx) {
   }
 
   return "";
-}
-
-function evaluateCond(cond, ctx) {
-  const state = api.state;
-  if (!cond) return false;
-
-  // not / all / any
-  if (cond.not) return !evaluateCond(cond.not, ctx);
-  if (Array.isArray(cond.all)) return cond.all.every((c) => evaluateCond(c, ctx));
-  if (Array.isArray(cond.any)) return cond.any.some((c) => evaluateCond(c, ctx));
-
-  // flag: { flag:"x", value: true/false/..." }
-  if (cond.flag) {
-    const flagName = cond.flag;
-    const expected = cond.value; // puede ser undefined
-    return api.hasFlag(flagName, expected);
-  }
-
-  // hasItem: { hasItem:"llave" }
-  if (cond.hasItem) {
-    return api.hasItem(cond.hasItem);
-  }
-
-  // (futuro) scene / object / etc.
-  // if (cond.scene) return state.scene === cond.scene;
-
-  return false;
 }
 
 /* =========================================================
