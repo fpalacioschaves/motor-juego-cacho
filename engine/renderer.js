@@ -81,17 +81,29 @@ function ensureStageDOM() {
 function fitStage() {
   const viewport = document.getElementById("sceneViewport");
   const stage = document.getElementById("sceneStage");
-  const sceneEl = document.querySelector(".scene");
 
-  if (!viewport || !stage || !sceneEl) return;
+  if (!viewport || !stage) return;
 
-  const vw = sceneEl.clientWidth;
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
 
-  let scale = vw / BASE_W;
+  if (vw === 0 || vh === 0) return;
+
+  // Calculamos escala para que quepa tanto en ancho como en alto
+  const scaleW = vw / BASE_W;
+  const scaleH = vh / BASE_H;
+
+  let scale = Math.min(scaleW, scaleH);
   scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
 
-  viewport.style.height = `${BASE_H * scale}px`;
   stage.style.transform = `scale(${scale})`;
+
+  // Centrar el escenario si sobra espacio
+  const actualW = BASE_W * scale;
+  const actualH = BASE_H * scale;
+
+  stage.style.left = `${(vw - actualW) / 2}px`;
+  stage.style.top = `${(vh - actualH) / 2}px`;
 }
 
 export function bindUI(config) {

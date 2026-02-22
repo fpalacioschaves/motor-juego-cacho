@@ -18,8 +18,15 @@
   box-sizing: border-box;
 }
 
+html,
 body {
+  height: 100%;
   margin: 0;
+  overflow: hidden;
+  /* Elimina scroll global */
+}
+
+body {
   background: radial-gradient(1400px 900px at 20% 10%, #1b2350 0%, var(--bg) 55%);
   color: var(--text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans,
@@ -27,9 +34,12 @@ body {
 }
 
 .app {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  margin: 0;
+  height: 100vh;
   padding: 12px;
+  gap: 12px;
 }
 
 /* ================= TOPBAR ================= */
@@ -132,10 +142,19 @@ body {
 /* ================= LAYOUT ================= */
 
 .main {
-  display: grid;
-  grid-template-columns: 1fr;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  margin-top: 4px;
+  overflow: hidden;
+  /* Asegura que el contenido se ajuste */
+}
+
+.game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 /* ===========================
@@ -144,19 +163,21 @@ body {
 
 .scene {
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   border-radius: var(--radius);
   border: var(--border);
   background: rgba(255, 255, 255, 0.03);
   box-shadow: var(--shadow);
   overflow: hidden;
-  width: 100%;
 }
 
 .scene-viewport {
   position: relative;
+  flex: 1;
   width: 100%;
-  aspect-ratio: calc(var(--stage-w) / var(--stage-h));
-  max-height: 80vh;
   margin: 0 auto;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(122, 167, 255, 0.18), rgba(255, 255, 255, 0.02));
@@ -189,8 +210,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .scene-bg--image {
@@ -286,7 +312,7 @@ body {
 }
 
 .verb-btn small {
- 
+
 
   color: var(--muted);
   font-weight: 600;
@@ -343,6 +369,7 @@ body {
   .topbar {
     flex-wrap: wrap;
   }
+
   .scene-meta {
     order: 3;
     width: 100%;
